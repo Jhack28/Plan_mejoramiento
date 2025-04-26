@@ -7,5 +7,5 @@ class Usuario(db.Model):
     ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     nombres = db.Column(db.String(100), nullable=False)
     apellidos = db.Column(db.String(100), nullable=False)
-    correo = db.Column(db.String(100), nullable=False)
-    contraseña = db.Column(db.String(100), nullable=False)
+    correo = db.Column(db.String(100), unique=True, nullable=False)
+    contraseña = db.Column(db.String(400), nullable=False)

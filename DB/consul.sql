@@ -1,1 +1,1 @@
-select ID, nombres, apellidos, correo, repeat('*', char_length(contraseña)) as contraseña from Usuarios;
+--select ID, nombres, apellidos, correo, repeat('*', char_length(contraseña)) as contraseña from Usuarios;

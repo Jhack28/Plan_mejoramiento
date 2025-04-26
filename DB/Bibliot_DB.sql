@@ -1,12 +1,11 @@
-drop database bibliot_db;
-create database Bibliot_DB;
-use Bibliot_DB;
+-- drop database bibliot_db;
+-- create database Bibliot_DB;
+-- use Bibliot_DB;
 
-create table Usuarios (
-	ID int primary key auto_increment,
-    nombres varchar(100) not null,
-    apellidos varchar(100) not null,
-    correo varchar(100) not null,
-    contraseña varchar(100) not null
-    );
-    
+-- CREATE TABLE Usuarios (
+--     ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+--     nombres VARCHAR(100) NOT NULL,
+--     apellidos VARCHAR(100) NOT NULL,
+--     correo VARCHAR(100) NOT NULL UNIQUE,
+--     contrasena VARCHAR(100) NOT NULL
+-- );
