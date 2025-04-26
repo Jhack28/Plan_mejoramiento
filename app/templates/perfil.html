@@ -1,18 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Bienvenido usuario</title>
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-      <div class="alert alert-{{ category }}">{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    <!-- Imagen de fondo -->
+    <div class="background-image"></div>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flashes">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+            <span class="close-alert" onclick="this.parentElement.style.display='none';">&times;</span>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    <header class="main-header">
+        <div class="header-title">
+            <h1>Bienvenido, {{ usuario.nombres }} {{ usuario.apellidos }}</h1>
+        </div>
+        <div class="header-buttons">
+            <form action="{{ url_for('user.logout') }}" method="post" style="display:inline;">
+                <button type="submit" class="btn-logout">Cerrar sesión</button>
+            </form>
+            <form action="{{ url_for('user.delete_account') }}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu cuenta? Esta acción no se puede deshacer.');">
+                <button type="submit" class="btn-delete">Borrar mi cuenta</button>
+            </form>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="user-aside">
+            <h2>Datos del usuario</h2>
+            <ul>
+                <li><strong>Nombre:</strong> {{ usuario.nombres }}</li>
+                <li><strong>Apellido:</strong> {{ usuario.apellidos }}</li>
+                <li><strong>Correo:</strong> {{ usuario.correo }}</li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <h2>¡Bienvenido a tu perfil!</h2>
+            <p>Aquí puedes gestionar tu cuenta y explorar la biblioteca virtual.</p>
+        </main>
+    </div>
+
+    <script>
+      setTimeout(function() {
+        document.querySelectorAll('.alert').forEach(function(alert) {
+          alert.style.opacity = '0';
+          setTimeout(function() {
+            alert.style.display = 'none';
+          }, 500);
+        });
+      }, 4000);
+    </script>
 </body>
 </html>

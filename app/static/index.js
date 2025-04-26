@@ -1,27 +1,38 @@
-        
-        // manejo del cierre y apertura del modal de login  
-        // Obtener elementos
-        const openModalBtn = document.getElementById('openModalBtn');
-        const loginModal = document.getElementById('login-modal');
-        const closeModal = document.querySelector('.close');
+// Botones para abrir los modals
+const openRegistroBtn = document.getElementById('openRegistroBtn');
+const openLoginBtn = document.getElementById('openLoginBtn');
 
-        // Abrir modal
-        openModalBtn.addEventListener('click', () => {
-            loginModal.style.display = 'flex';
-        });
+// Modals
+const registroModal = document.getElementById('registro-modal');
+const loginModal = document.getElementById('login-modal');
 
-        // Cerrar modal al hacer click en la 'x'
-        closeModal.addEventListener('click', () => {
-            loginModal.style.display = 'none';
-        });
+// Botones de cerrar
+const closeButtons = document.querySelectorAll('.close');
 
-        // También cerrar modal si se hace click fuera del contenido
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                loginModal.style.display = 'none';
-            }
-        });
+// Abrir modal de registro
+openRegistroBtn.addEventListener('click', () => {
+    registroModal.style.display = 'flex';
+});
 
-        document.getElementById('openModalBtn').onclick = function() {
-            document.getElementById('modalRegistro').style.display = 'block';
-        };      
+// Abrir modal de login
+openLoginBtn.addEventListener('click', () => {
+    loginModal.style.display = 'flex';
+});
+
+// Cerrar modals al hacer click en la 'x'
+closeButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.closest('.login-modal').style.display = 'none';
+    });
+});
+
+// Cerrar modal si se hace click fuera del contenido
+window.addEventListener('click', (e) => {
+    if (e.target === registroModal) {
+        registroModal.style.display = 'none';
+    }
+    if (e.target === loginModal) {
+        loginModal.style.display = 'none';
+    }
+});
+

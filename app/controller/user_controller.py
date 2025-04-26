@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from app.models import db, Usuario
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -19,7 +19,7 @@ def register():
     nuevo_usuario = Usuario(nombres=nombres, apellidos=apellidos, correo=correo, contraseña=hash_contraseña)
     db.session.add(nuevo_usuario)
     db.session.commit()
-    flash('Registro exitoso. Ahora puedes iniciar sesión.', 'success')
+    flash('Registro exitoso en la base de datos. Ahora puedes iniciar sesión.', 'success')
     return redirect(url_for('index'))
 
 @bp.route('/login', methods=['POST'])
@@ -29,15 +29,43 @@ def login():
     usuario = Usuario.query.filter_by(correo=correo).first()
 
     if usuario and check_password_hash(usuario.contraseña, contraseña):
-        flash('Login exitoso', 'success')
+        session['usuario_id'] = usuario.ID
+        flash('Inicio de sesión exitoso, bienvenido usuario', 'success')
         return redirect(url_for('user.perfil'))
     else:
         flash('Correo o contraseña incorrectos. Regístrate si no tienes cuenta.', 'error')
         return redirect(url_for('index'))
 
+
 @bp.route('/perfil')
 def perfil():
-    return render_template('perfil.html')
+    if 'usuario_id' not in session:
+        flash('Debes iniciar sesión para ver tu perfil.', 'error')
+        return redirect(url_for('index'))
+    usuario = Usuario.query.get(session['usuario_id'])
+    return render_template('perfil.html', usuario=usuario)
 
 def index():
     return render_template('index.html')
+
+
+
+@bp.route('/logout', methods=['POST'])
+def logout():
+    session.pop('usuario_id', None)
+    flash('Sesión cerrada correctamente.', 'success')
+    return redirect(url_for('index'))
+
+@bp.route('/delete_account', methods=['POST'])
+def delete_account():
+    user_id = session.get('usuario_id')
+    if user_id:
+        usuario = Usuario.query.get(user_id)
+        if usuario:
+            db.session.delete(usuario)
+            db.session.commit()
+            session.pop('usuario_id', None)
+            flash('Tu cuenta ha sido eliminada.', 'success')
+    return redirect(url_for('index'))
+
+

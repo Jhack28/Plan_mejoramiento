@@ -9,24 +9,132 @@
 }
 
 body {
-    background: linear-gradient(150deg, rgb(106, 174, 230), rgb(20, 66, 104));
+    background: linear-gradient(150deg, rgb(185, 185, 185), rgb(20, 66, 104));
     display: flex;
     justify-content: center;
     height: 100vh;
 }
 
-.login-modal {
+.header h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.promo-lectura {
+    position: absolute;
+    top: 130px; /* Ajusta según el alto de tu header */
+    right: 0;
+    width: 32vw;
+    min-width: 260px;
+    max-width: 420px;
+    margin: 32px 40px 0 0;
+    background: rgba(255, 255, 255, 0.432);
+    border-radius: 12px 0 0 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.829);
+    padding: 28px 24px 22px 28px;
+    text-align: right;
+    z-index: 2;
+    backdrop-filter: blur(2px);
+}
+
+.promo-lectura h2 {
+    margin: 0 0 10px 0;
+    color: #144268;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0 1px 4px #b2c9e6;
+}
+
+.promo-lectura p {
+    margin: 0;
+    color: #000000;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+ 
+
+/* Modal de Login */
+#login-modal {
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.555);
-    z-index: 999;
 }
+
+#login-modal .modal-content {
+    background: linear-gradient(150deg, #6aaee6, #144268);
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0,0,0,0.5);
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+#login-modal h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#login-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#login-modal label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+#login-modal input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+#login-modal button[type="submit"] {
+    width: 90%;
+    font-size: 18px;
+    background-color: #4988d1;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 6px;
+    border: 2px rgba(0, 0, 0, 0.527) solid;
+    box-shadow: 0 0 10px rgb(0, 132, 219);
+    padding: 10px;
+}
+
+#login-modal button[type="submit"]:hover {
+    background: white;
+    color: #4988d1;
+    border: 2px solid #4988d1;
+}
+
+#login-modal .close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 
 .close{
     display: flex;
@@ -109,4 +217,300 @@ body {
     border: 2px rgba(0, 0, 0, 0.527) solid;
     box-shadow: 0 0 10px rgb(0, 132, 219);
     padding: 10px;
+}
+
+/* Modal de Registro */
+#registro-modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+#registro-modal .modal-content {
+    background: linear-gradient(150deg, #6aaee6, #144268);
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 16px rgba(0,0,0,0.5);
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+#registro-modal h2 {
+    text-align: center;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#registro-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#registro-modal label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 2px;
+    text-align: left;
+}
+
+#registro-modal input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+#registro-modal .btn-registrar {
+    background-color: #4988d1;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgb(0, 132, 219);
+    transition: background 0.3s, color 0.3s;
+}
+
+#registro-modal .btn-registrar:hover {
+    background: white;
+    color: #4988d1;
+    border: 2px solid #4988d1;
+}
+
+#registro-modal .close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+ 
+.flashes {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    width: 100vw;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+.alert {
+    min-width: 320px;
+    max-width: 400px;
+    margin: 8px auto;
+    padding: 16px 24px;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+    opacity: 0.95;
+    pointer-events: auto;
+    position: relative;
+    animation: fadeInDown 0.7s;
+    transition: opacity 0.5s;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1.5px solid #28a745;
+}
+
+.alert-error, .alert-danger {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1.5px solid #dc3545;
+}
+
+.close-alert {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    color: #888;
+    font-size: 22px;
+    cursor: pointer;
+    font-weight: bold;
+    user-select: none;
+}
+
+@keyframes fadeInDown {
+    from { transform: translateY(-40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 0.95; }
+}
+
+
+
+/* perfil */
+.btn-logout, .btn-delete {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin: 8px 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-logout {
+    background: #4988d1;
+    color: #fff;
+}
+
+.btn-logout:hover {
+    background: #3766a0;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #a71d2a;
+}
+
+/* imagenes de fondo*/
+.main-header {
+    width: 100%;
+    min-height: 160px;
+    background: url('/static/img/body.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.main-header::after {
+    /* Capa oscura para mejorar contraste */
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.header-content-row {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 40px 10px 40px;
+    width: 100%;
+}
+
+.header-title-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.header-title-group h1 {
+    margin: 0;
+    color: #fff;
+    font-size: 2.1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 8px #222;
+}
+
+.subtitulo {
+    margin: 0;
+    color: #f0f0f0;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 4px #333;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-open {
+    background-color: #4988d1;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px rgba(0, 0, 0, 0.527) solid;
+    box-shadow: 0 0 10px rgb(0, 132, 219);
+    padding: 10px 18px;
+    font-size: 1rem;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-open:hover {
+    background: white;
+    color: #4988d1;
+    border: 2px solid #4988d1;
+}
+
+.user-aside {
+    width: 260px;
+    min-height: 300px;
+    background: url('/static/img/aside.jpeg') no-repeat center center;
+    background-size: cover;
+    border-radius: 0 18px 18px 0;
+    box-shadow: 2px 0 16px rgba(0,0,0,0.08);
+    padding: 28px 18px;
+    margin-right: 32px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Capa semitransparente para mejorar la legibilidad del texto */
+.user-aside::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(20, 53, 80, 0.87); /* Ajusta el color y la opacidad según tu imagen */
+    z-index: 0;
+}
+
+.user-aside > * {
+    position: relative;
+    z-index: 1;
+}
+
+.user-aside h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.user-aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-aside li {
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.main-content {
+    background:  rgba(140, 142, 145, 0.801);
 }
