@@ -4,6 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 bp = Blueprint('user', __name__)
 
+#controllers de usuario
+
 @bp.route('/register', methods=['POST'])
 def register():
     nombres = request.form['nombres']
@@ -49,6 +51,7 @@ def index():
     return render_template('index.html')
 
 
+#controllers perfil
 
 @bp.route('/logout', methods=['POST'])
 def logout():
@@ -69,3 +72,27 @@ def delete_account():
     return redirect(url_for('index'))
 
 
+
+@bp.route('/change_password', methods=['POST'])
+def change_password():
+    user_id = session.get('usuario_id')
+    if not user_id:
+        flash('Debes iniciar sesión.', 'error')
+        return redirect(url_for('index'))
+    usuario = Usuario.query.get(user_id)
+    current_password = request.form.get('current_password')
+    new_password = request.form.get('new_password')
+    confirm_password = request.form.get('confirm_password')
+
+    if not check_password_hash(usuario.contraseña, current_password):
+        flash('La contraseña actual es incorrecta.', 'error')
+        return redirect(url_for('user.perfil'))
+
+    if new_password != confirm_password:
+        flash('Las contraseñas nuevas no coinciden.', 'error')
+        return redirect(url_for('user.perfil'))
+
+    usuario.contraseña = generate_password_hash(new_password)
+    db.session.commit()
+    flash('Contraseña actualizada correctamente.', 'success')
+    return redirect(url_for('user.perfil'))

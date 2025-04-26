@@ -7,7 +7,6 @@
     <title>Bienvenido usuario</title>
 </head>
 <body>
-    <!-- Imagen de fondo -->
     <div class="background-image"></div>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -34,6 +33,8 @@
             <form action="{{ url_for('user.delete_account') }}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas borrar tu cuenta? Esta acción no se puede deshacer.');">
                 <button type="submit" class="btn-delete">Borrar mi cuenta</button>
             </form>
+            <!-- Botón para cambiar contraseña -->
+            <button id="openChangePasswordBtn" class="btn-change">Cambiar contraseña</button>
         </div>
     </header>
 
@@ -52,7 +53,27 @@
         </main>
     </div>
 
+        <!-- Modal de cambiar contraseña -->
+        <div id="change-password-modal" class="change-modal">
+            <div class="change-modal-content">
+                <span class="close-change">&times;</span>
+                <h2>Cambiar contraseña</h2>
+                <form action="{{ url_for('user.change_password') }}" method="POST">
+                    <label for="current_password">Contraseña actual</label>
+                    <input type="password" id="current_password" name="current_password" placeholder="Contraseña actual" required autocomplete="current-password">
+
+                    <label for="new_password">Nueva contraseña</label>
+                    <input type="password" id="new_password" name="new_password" placeholder="Nueva contraseña" required autocomplete="new-password">
+
+                    <label for="confirm_password">Confirmar nueva contraseña</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirma la nueva contraseña" required>
+
+                    <button type="submit" class="btn-registrar">Actualizar contraseña</button>
+                </form>
+            </div>
+        </div>
     <script>
+      // Oculta todas las alertas después de 4 segundos (4000 ms)
       setTimeout(function() {
         document.querySelectorAll('.alert').forEach(function(alert) {
           alert.style.opacity = '0';
@@ -61,6 +82,25 @@
           }, 500);
         });
       }, 4000);
+
+      // Modal cambiar contraseña
+      const openChangePasswordBtn = document.getElementById('openChangePasswordBtn');
+      const changePasswordModal = document.getElementById('change-password-modal');
+      const closeChangePassword = changePasswordModal.querySelector('.close');
+
+      openChangePasswordBtn.addEventListener('click', () => {
+          changePasswordModal.style.display = 'flex';
+      });
+
+      closeChangePassword.addEventListener('click', () => {
+          changePasswordModal.style.display = 'none';
+      });
+
+      window.addEventListener('click', (e) => {
+          if (e.target === changePasswordModal) {
+              changePasswordModal.style.display = 'none';
+          }
+      });
     </script>
 </body>
 </html>
